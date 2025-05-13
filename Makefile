@@ -108,6 +108,7 @@ copy-core-for-cli:
 # does not support this bash feature.
 .PHONY: core
 core:
+	ln -fs _build/install/default/bin bin
 	dune build $(BUILD)/install/default/bin/semgrep-core$(EXE)
 	dune build $(BUILD)/install/default/bin/osemgrep$(EXE)
 	dune build $(BUILD)/install/default/bin/semgrep$(EXE)
