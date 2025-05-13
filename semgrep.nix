@@ -155,8 +155,8 @@ in let
       ./cli/tests/default/e2e/targets/ls
       ./scripts/run-core-test
       ./scripts/make-symlinks
-      ./test
-      ./tests
+      (maybeMissing ./test)
+      (maybeMissing ./tests)
     ]));
 
     inherit env;
