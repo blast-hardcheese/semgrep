@@ -99,7 +99,7 @@ all:
 .PHONY: copy-core-for-cli
 copy-core-for-cli:
 	rm -f cli/src/semgrep/bin/semgrep-core$(EXE)
-	cp bin/semgrep-core$(EXE) cli/src/semgrep/bin/
+	cp _build/install/default/bin/semgrep-core$(EXE) cli/src/semgrep/bin/
 
 # Minimal build of the semgrep-core executable. Intended for the docker build.
 # If you need other binaries, look at the build-xxx rules below.
@@ -115,8 +115,8 @@ core:
 # size and it doesn't seem to reduce the functionality or
 # debuggability of OCaml executables.
 # See discussion at https://github.com/semgrep/semgrep/pull/9471
-	chmod +w bin/semgrep-core$(EXE)
-	strip bin/semgrep-core$(EXE)
+	chmod +w _build/install/default/bin/semgrep-core$(EXE)
+	strip _build/install/default/bin/semgrep-core$(EXE)
 
 #coupling: The 'semgrep-oss' is the name of the step in the Dockerfile, the
 # 'semgrep' the name of the docker image produced (will be semgrep:latest)
@@ -213,7 +213,7 @@ build-core-test:
 #coupling: this is run by .github/workflow/tests.yml
 .PHONY: core-test-e2e
 core-test-e2e:
-	SEMGREP_CORE=$(PWD)/bin/semgrep-core$(EXE) \
+	SEMGREP_CORE=$(PWD)/_build/install/default/bin/semgrep-core$(EXE) \
 	$(MAKE) -C interfaces/semgrep_interfaces test
 
 ###############################################################################
@@ -468,10 +468,10 @@ SEMGREP_ARGS=--experimental --config semgrep.jsonnet --error --strict --exclude 
 #Dogfooding osemgrep!
 .PHONY: check
 check:
-	./bin/osemgrep$(EXE) $(SEMGREP_ARGS)
+	./_build/install/default/bin/osemgrep$(EXE) $(SEMGREP_ARGS)
 
 check_for_emacs:
-	./bin/osemgrep$(EXE) $(SEMGREP_ARGS) --emacs --quiet
+	./_build/install/default/bin/osemgrep$(EXE) $(SEMGREP_ARGS) --emacs --quiet
 
 DOCKER_IMAGE=semgrep/semgrep:develop
 
