@@ -161,6 +161,13 @@ in let
 
     inherit env;
 
+    configurePhase = ''
+      # Create cache directories with explicit permissions
+      export XDG_CACHE_HOME="$PWD/.cache"
+      mkdir -p "$XDG_CACHE_HOME/dune/db/temp"
+      chmod -R 755 "$XDG_CACHE_HOME"
+    '';
+
     buildPhase = lib.buildPhaseSubmoduleCheck "make core";
     # needed for networking tests
     nativeCheckInputs = (with pkgs; [ cacert git ]);
