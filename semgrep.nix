@@ -166,6 +166,8 @@ in let
       export XDG_CACHE_HOME="$PWD/.cache"
       mkdir -p "$XDG_CACHE_HOME/dune/db/temp"
       chmod -R 755 "$XDG_CACHE_HOME"
+
+      export PATH="${pkgs.git}/bin:''${PATH}"
     '';
 
     buildPhase = lib.buildPhaseSubmoduleCheck "make core";
