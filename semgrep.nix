@@ -168,6 +168,10 @@ in let
       chmod -R 755 "$XDG_CACHE_HOME"
 
       export PATH="${pkgs.git}/bin:''${PATH}"
+
+      ${pkgs.findutils}/bin/find -type f -name '*.sh' | while read -r path; do
+        patchShebangs "$path"
+      done
     '';
 
     buildPhase = lib.buildPhaseSubmoduleCheck "make core";
